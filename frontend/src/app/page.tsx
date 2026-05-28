@@ -45,7 +45,7 @@ export default function Home() {
 
         </aside>
 
-        {/* Main Dashboard */}
+        {/* Main Content */}
         <section className="flex-1 p-8">
 
           {/* Header */}
@@ -93,10 +93,10 @@ export default function Home() {
 
           </div>
 
-          {/* Main Stats */}
+          {/* Stats */}
           <div className="grid grid-cols-4 gap-6">
 
-            <div className="bg-[#1E293B] p-6 rounded-2xl shadow-lg">
+            <div className="bg-[#1E293B] p-6 rounded-2xl">
 
               <h3 className="text-gray-400 mb-3">
                 Critical Incidents
@@ -108,7 +108,7 @@ export default function Home() {
 
             </div>
 
-            <div className="bg-[#1E293B] p-6 rounded-2xl shadow-lg">
+            <div className="bg-[#1E293B] p-6 rounded-2xl">
 
               <h3 className="text-gray-400 mb-3">
                 Active Alerts
@@ -120,7 +120,7 @@ export default function Home() {
 
             </div>
 
-            <div className="bg-[#1E293B] p-6 rounded-2xl shadow-lg">
+            <div className="bg-[#1E293B] p-6 rounded-2xl">
 
               <h3 className="text-gray-400 mb-3">
                 Resolved Today
@@ -132,7 +132,7 @@ export default function Home() {
 
             </div>
 
-            <div className="bg-[#1E293B] p-6 rounded-2xl shadow-lg">
+            <div className="bg-[#1E293B] p-6 rounded-2xl">
 
               <h3 className="text-gray-400 mb-3">
                 AI Accuracy
@@ -166,72 +166,94 @@ export default function Home() {
 
           </div>
 
-          {/* Infrastructure Health */}
-          <div className="mt-10">
+          {/* AI Analysis Section */}
+          <div className="mt-10 grid grid-cols-2 gap-6">
 
-            <h2 className="text-3xl font-bold mb-6">
-              Infrastructure Health
-            </h2>
+            {/* Root Cause Panel */}
+            <div className="bg-[#1E293B] p-6 rounded-2xl">
 
-            <div className="grid grid-cols-3 gap-6">
+              <h2 className="text-2xl font-bold mb-6">
+                AI Root Cause Analysis
+              </h2>
 
-              <div className="bg-[#1E293B] p-6 rounded-2xl">
+              <div className="space-y-5">
 
-                <div className="flex items-center justify-between">
+                <div>
 
-                  <h3 className="text-xl font-semibold">
-                    Kubernetes Cluster
-                  </h3>
+                  <p className="text-gray-400 mb-2">
+                    Primary Root Cause
+                  </p>
 
-                  <span className="text-green-400 font-bold">
-                    Healthy
-                  </span>
-
-                </div>
-
-                <p className="text-gray-400 mt-4">
-                  All nodes operational with stable memory usage.
-                </p>
-
-              </div>
-
-              <div className="bg-[#1E293B] p-6 rounded-2xl">
-
-                <div className="flex items-center justify-between">
-
-                  <h3 className="text-xl font-semibold">
-                    PostgreSQL Database
-                  </h3>
-
-                  <span className="text-yellow-400 font-bold">
-                    Warning
-                  </span>
+                  <p className="text-xl font-semibold text-red-400">
+                    PostgreSQL Connection Pool Exhaustion
+                  </p>
 
                 </div>
 
-                <p className="text-gray-400 mt-4">
-                  Increased query latency detected during peak traffic.
-                </p>
+                <div>
 
-              </div>
+                  <p className="text-gray-400 mb-2">
+                    Affected Service
+                  </p>
 
-              <div className="bg-[#1E293B] p-6 rounded-2xl">
+                  <p className="text-xl font-semibold">
+                    Payment API Gateway
+                  </p>
 
-                <div className="flex items-center justify-between">
+                </div>
 
-                  <h3 className="text-xl font-semibold">
-                    Payment Gateway
-                  </h3>
+                <div>
 
-                  <span className="text-red-400 font-bold">
+                  <p className="text-gray-400 mb-2">
+                    Confidence Score
+                  </p>
+
+                  <p className="text-3xl font-bold text-cyan-400">
+                    94%
+                  </p>
+
+                </div>
+
+                <div>
+
+                  <p className="text-gray-400 mb-2">
+                    Severity
+                  </p>
+
+                  <p className="text-red-400 font-bold text-xl">
                     Critical
-                  </span>
+                  </p>
 
                 </div>
 
-                <p className="text-gray-400 mt-4">
-                  API timeout spikes impacting payment processing.
-                </p>
+              </div>
+
+            </div>
+
+            {/* AI Recommendation Panel */}
+            <div className="bg-[#1E293B] p-6 rounded-2xl">
+
+              <h2 className="text-2xl font-bold mb-6">
+                AI Recommended Actions
+              </h2>
+
+              <div className="space-y-4">
+
+                <div className="bg-[#0F172A] p-4 rounded-xl">
+                  Restart PostgreSQL connection pool
+                </div>
+
+                <div className="bg-[#0F172A] p-4 rounded-xl">
+                  Rollback deployment version v2.3
+                </div>
+
+                <div className="bg-[#0F172A] p-4 rounded-xl">
+                  Increase database connection limits
+                </div>
+
+                <div className="bg-[#0F172A] p-4 rounded-xl">
+                  Enable additional monitoring alerts
+                </div>
 
               </div>
 
@@ -239,104 +261,122 @@ export default function Home() {
 
           </div>
 
-          {/* Recent Incidents */}
-          <div className="mt-10 bg-[#1E293B] rounded-2xl p-6 shadow-lg">
+          {/* Timeline + Activity */}
+          <div className="grid grid-cols-2 gap-6 mt-10">
 
-            <h2 className="text-2xl font-semibold mb-6">
-              Recent Incidents
-            </h2>
+            {/* Timeline */}
+            <div className="bg-[#1E293B] p-6 rounded-2xl">
 
-            <table className="w-full">
+              <h2 className="text-2xl font-bold mb-6">
+                Incident Timeline
+              </h2>
 
-              <thead>
+              <div className="space-y-6">
 
-                <tr className="border-b border-gray-700 text-left text-gray-400">
+                <div className="border-l-4 border-red-500 pl-4">
+                  <p className="text-red-400 font-bold">
+                    03:14 AM
+                  </p>
 
-                  <th className="pb-4">
-                    Service
-                  </th>
+                  <p className="mt-1">
+                    Payment API latency exceeded threshold.
+                  </p>
+                </div>
 
-                  <th className="pb-4">
-                    Severity
-                  </th>
+                <div className="border-l-4 border-yellow-500 pl-4">
+                  <p className="text-yellow-400 font-bold">
+                    03:17 AM
+                  </p>
 
-                  <th className="pb-4">
-                    Status
-                  </th>
+                  <p className="mt-1">
+                    Database connection pool nearing limit.
+                  </p>
+                </div>
 
-                  <th className="pb-4">
-                    AI Root Cause
-                  </th>
+                <div className="border-l-4 border-blue-500 pl-4">
+                  <p className="text-blue-400 font-bold">
+                    03:22 AM
+                  </p>
 
-                </tr>
+                  <p className="mt-1">
+                    AI root cause analysis initiated automatically.
+                  </p>
+                </div>
 
-              </thead>
+                <div className="border-l-4 border-green-500 pl-4">
+                  <p className="text-green-400 font-bold">
+                    03:28 AM
+                  </p>
 
-              <tbody>
+                  <p className="mt-1">
+                    Recommended rollback generated by IncidentIQ.
+                  </p>
+                </div>
 
-                <tr className="border-b border-gray-800">
+              </div>
 
-                  <td className="py-4">
-                    Payment API
-                  </td>
+            </div>
 
-                  <td className="text-red-400">
-                    Critical
-                  </td>
+            {/* Activity Feed */}
+            <div className="bg-[#1E293B] p-6 rounded-2xl">
 
-                  <td>
-                    Investigating
-                  </td>
+              <h2 className="text-2xl font-bold mb-6">
+                Live Activity Feed
+              </h2>
 
-                  <td>
-                    Database connection timeout spike
-                  </td>
+              <div className="space-y-5">
 
-                </tr>
+                <div className="flex items-start gap-4">
 
-                <tr className="border-b border-gray-800">
+                  <div className="w-3 h-3 rounded-full bg-red-500 mt-2"></div>
 
-                  <td className="py-4">
-                    Auth Service
-                  </td>
+                  <div>
+                    <p className="font-semibold">
+                      Critical Alert Triggered
+                    </p>
 
-                  <td className="text-yellow-400">
-                    Warning
-                  </td>
+                    <p className="text-gray-400 text-sm mt-1">
+                      Payment API timeout rate increased by 67%.
+                    </p>
+                  </div>
 
-                  <td>
-                    Monitoring
-                  </td>
+                </div>
 
-                  <td>
-                    CPU usage exceeded threshold
-                  </td>
+                <div className="flex items-start gap-4">
 
-                </tr>
+                  <div className="w-3 h-3 rounded-full bg-yellow-500 mt-2"></div>
 
-                <tr>
+                  <div>
+                    <p className="font-semibold">
+                      AI Analysis Started
+                    </p>
 
-                  <td className="py-4">
-                    Kubernetes Cluster
-                  </td>
+                    <p className="text-gray-400 text-sm mt-1">
+                      Collecting logs and infrastructure metrics.
+                    </p>
+                  </div>
 
-                  <td className="text-green-400">
-                    Resolved
-                  </td>
+                </div>
 
-                  <td>
-                    Resolved
-                  </td>
+                <div className="flex items-start gap-4">
 
-                  <td>
-                    Memory leak after deployment rollback
-                  </td>
+                  <div className="w-3 h-3 rounded-full bg-blue-500 mt-2"></div>
 
-                </tr>
+                  <div>
+                    <p className="font-semibold">
+                      Slack Notification Sent
+                    </p>
 
-              </tbody>
+                    <p className="text-gray-400 text-sm mt-1">
+                      Incident summary delivered to SRE team.
+                    </p>
+                  </div>
 
-            </table>
+                </div>
+
+              </div>
+
+            </div>
 
           </div>
 
