@@ -3,6 +3,18 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+import {
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  BarChart,
+  Bar
+} from "recharts";
+
 export default function Home() {
 
   const [incidents, setIncidents] = useState<any[]>([]);
@@ -63,6 +75,20 @@ export default function Home() {
 
   };
 
+  const severityData = [
+    { name: "Critical", incidents: 12 },
+    { name: "Warning", incidents: 18 },
+    { name: "Resolved", incidents: 43 }
+  ];
+
+  const aiTrendData = [
+    { day: "Mon", confidence: 82 },
+    { day: "Tue", confidence: 86 },
+    { day: "Wed", confidence: 88 },
+    { day: "Thu", confidence: 90 },
+    { day: "Fri", confidence: 94 }
+  ];
+
   return (
     <main className="min-h-screen bg-[#0B1120] text-white">
 
@@ -93,6 +119,10 @@ export default function Home() {
               Infrastructure
             </div>
 
+            <div className="text-gray-400">
+              Analytics
+            </div>
+
           </nav>
 
         </aside>
@@ -104,25 +134,129 @@ export default function Home() {
           <div className="mb-10">
 
             <h1 className="text-5xl font-bold">
-              Live AI Incident Dashboard
+              AI Incident Intelligence Platform
             </h1>
 
             <p className="text-gray-400 mt-3 text-lg">
-              Real-time infrastructure monitoring powered by AI.
+              Enterprise-grade AI-powered root cause analysis and observability platform.
             </p>
 
           </div>
 
-          {/* Backend Connected */}
-          <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-6 rounded-2xl mb-10">
+          {/* Metrics */}
+          <div className="grid grid-cols-4 gap-6 mb-10">
 
-            <h2 className="text-2xl font-bold">
-              Backend API Connected Successfully
-            </h2>
+            <div className="bg-[#1E293B] p-6 rounded-2xl">
 
-            <p className="mt-3 text-lg">
-              IncidentIQ is now fetching live incidents from FastAPI backend.
-            </p>
+              <p className="text-gray-400">
+                Critical Incidents
+              </p>
+
+              <h2 className="text-5xl font-bold text-red-400 mt-3">
+                12
+              </h2>
+
+            </div>
+
+            <div className="bg-[#1E293B] p-6 rounded-2xl">
+
+              <p className="text-gray-400">
+                Active Alerts
+              </p>
+
+              <h2 className="text-5xl font-bold text-yellow-400 mt-3">
+                28
+              </h2>
+
+            </div>
+
+            <div className="bg-[#1E293B] p-6 rounded-2xl">
+
+              <p className="text-gray-400">
+                AI Accuracy
+              </p>
+
+              <h2 className="text-5xl font-bold text-cyan-400 mt-3">
+                94%
+              </h2>
+
+            </div>
+
+            <div className="bg-[#1E293B] p-6 rounded-2xl">
+
+              <p className="text-gray-400">
+                MTTR Reduction
+              </p>
+
+              <h2 className="text-5xl font-bold text-green-400 mt-3">
+                80%
+              </h2>
+
+            </div>
+
+          </div>
+
+          {/* Charts */}
+          <div className="grid grid-cols-2 gap-6 mb-10">
+
+            {/* Severity Chart */}
+            <div className="bg-[#1E293B] p-6 rounded-2xl">
+
+              <h2 className="text-2xl font-bold mb-6">
+                Incident Severity Heatmap
+              </h2>
+
+              <ResponsiveContainer width="100%" height={300}>
+
+                <BarChart data={severityData}>
+
+                  <CartesianGrid strokeDasharray="3 3" />
+
+                  <XAxis dataKey="name" />
+
+                  <YAxis />
+
+                  <Tooltip />
+
+                  <Bar dataKey="incidents" fill="#3B82F6" />
+
+                </BarChart>
+
+              </ResponsiveContainer>
+
+            </div>
+
+            {/* AI Trends */}
+            <div className="bg-[#1E293B] p-6 rounded-2xl">
+
+              <h2 className="text-2xl font-bold mb-6">
+                AI Confidence Trends
+              </h2>
+
+              <ResponsiveContainer width="100%" height={300}>
+
+                <LineChart data={aiTrendData}>
+
+                  <Line
+                    type="monotone"
+                    dataKey="confidence"
+                    stroke="#06B6D4"
+                    strokeWidth={4}
+                  />
+
+                  <CartesianGrid stroke="#374151" />
+
+                  <XAxis dataKey="day" />
+
+                  <YAxis />
+
+                  <Tooltip />
+
+                </LineChart>
+
+              </ResponsiveContainer>
+
+            </div>
 
           </div>
 
@@ -150,64 +284,68 @@ export default function Home() {
 
           </div>
 
-          {/* AI Log Analysis */}
+          {/* AI Analysis */}
           {logAnalysis && (
 
             <div className="bg-[#1E293B] p-6 rounded-2xl mb-10">
 
               <h2 className="text-3xl font-bold mb-6">
-                AI Log Analysis Results
+                AI Analysis Results
               </h2>
 
               <p className="text-green-400 text-lg mb-6">
                 {logAnalysis.ai_summary}
               </p>
 
-              <div className="mb-6">
+              <div className="grid grid-cols-2 gap-6">
 
-                <h3 className="text-2xl font-semibold mb-4">
-                  Detected Issues
-                </h3>
+                <div>
 
-                <div className="space-y-3">
+                  <h3 className="text-2xl font-semibold mb-4">
+                    Detected Issues
+                  </h3>
 
-                  {logAnalysis.detected_issues.map(
-                    (issue: string, index: number) => (
+                  <div className="space-y-3">
 
-                      <div
-                        key={index}
-                        className="bg-[#0F172A] p-4 rounded-xl border border-gray-700"
-                      >
-                        {issue}
-                      </div>
+                    {logAnalysis.detected_issues.map(
+                      (issue: string, index: number) => (
 
-                    )
-                  )}
+                        <div
+                          key={index}
+                          className="bg-[#0F172A] p-4 rounded-xl"
+                        >
+                          {issue}
+                        </div>
+
+                      )
+                    )}
+
+                  </div>
 
                 </div>
 
-              </div>
+                <div>
 
-              <div>
+                  <h3 className="text-2xl font-semibold mb-4">
+                    Recommended Actions
+                  </h3>
 
-                <h3 className="text-2xl font-semibold mb-4">
-                  Recommended Actions
-                </h3>
+                  <div className="space-y-3">
 
-                <div className="space-y-3">
+                    {logAnalysis.recommended_actions.map(
+                      (action: string, index: number) => (
 
-                  {logAnalysis.recommended_actions.map(
-                    (action: string, index: number) => (
+                        <div
+                          key={index}
+                          className="bg-[#0F172A] p-4 rounded-xl"
+                        >
+                          {action}
+                        </div>
 
-                      <div
-                        key={index}
-                        className="bg-[#0F172A] p-4 rounded-xl border border-gray-700"
-                      >
-                        {action}
-                      </div>
+                      )
+                    )}
 
-                    )
-                  )}
+                  </div>
 
                 </div>
 
@@ -217,7 +355,7 @@ export default function Home() {
 
           )}
 
-          {/* Live Incidents */}
+          {/* Live Incident Feed */}
           <div className="bg-[#1E293B] p-6 rounded-2xl">
 
             <h2 className="text-3xl font-bold mb-6">
