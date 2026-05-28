@@ -1,6 +1,7 @@
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#0B1120] text-white">
+
       <div className="flex">
 
         {/* Sidebar */}
@@ -12,27 +13,31 @@ export default function Home() {
 
           <nav className="space-y-6">
 
-            <div className="text-gray-300 hover:text-white cursor-pointer">
+            <div className="text-white font-semibold cursor-pointer">
               Dashboard
             </div>
 
-            <div className="text-gray-300 hover:text-white cursor-pointer">
+            <div className="text-gray-400 hover:text-white cursor-pointer">
               Incidents
             </div>
 
-            <div className="text-gray-300 hover:text-white cursor-pointer">
+            <div className="text-gray-400 hover:text-white cursor-pointer">
               Alerts
             </div>
 
-            <div className="text-gray-300 hover:text-white cursor-pointer">
+            <div className="text-gray-400 hover:text-white cursor-pointer">
               AI Analysis
             </div>
 
-            <div className="text-gray-300 hover:text-white cursor-pointer">
+            <div className="text-gray-400 hover:text-white cursor-pointer">
               Infrastructure
             </div>
 
-            <div className="text-gray-300 hover:text-white cursor-pointer">
+            <div className="text-gray-400 hover:text-white cursor-pointer">
+              Integrations
+            </div>
+
+            <div className="text-gray-400 hover:text-white cursor-pointer">
               Settings
             </div>
 
@@ -40,20 +45,20 @@ export default function Home() {
 
         </aside>
 
-        {/* Main Content */}
+        {/* Main Dashboard */}
         <section className="flex-1 p-8">
 
-          {/* Top Navbar */}
+          {/* Header */}
           <div className="flex items-center justify-between mb-10">
 
             <div>
 
-              <h2 className="text-5xl font-bold">
+              <h1 className="text-5xl font-bold">
                 AI Incident Dashboard
-              </h2>
+              </h1>
 
-              <p className="text-gray-400 mt-3 text-lg">
-                Real-time AI-powered root cause analysis for infrastructure incidents.
+              <p className="text-gray-400 text-lg mt-3">
+                Real-time AI-powered root cause analysis platform for modern infrastructure.
               </p>
 
             </div>
@@ -88,8 +93,8 @@ export default function Home() {
 
           </div>
 
-          {/* Stats Cards */}
-          <div className="grid grid-cols-3 gap-6">
+          {/* Main Stats */}
+          <div className="grid grid-cols-4 gap-6">
 
             <div className="bg-[#1E293B] p-6 rounded-2xl shadow-lg">
 
@@ -127,14 +132,26 @@ export default function Home() {
 
             </div>
 
+            <div className="bg-[#1E293B] p-6 rounded-2xl shadow-lg">
+
+              <h3 className="text-gray-400 mb-3">
+                AI Accuracy
+              </h3>
+
+              <p className="text-5xl font-bold text-cyan-400">
+                94%
+              </p>
+
+            </div>
+
           </div>
 
-          {/* AI Summary Panel */}
+          {/* AI Summary */}
           <div className="mt-10 bg-gradient-to-r from-blue-600 to-cyan-500 p-8 rounded-2xl shadow-xl">
 
-            <h3 className="text-3xl font-bold mb-4">
+            <h2 className="text-3xl font-bold mb-4">
               AI Incident Summary
-            </h3>
+            </h2>
 
             <p className="text-lg leading-8 text-white">
 
@@ -149,12 +166,85 @@ export default function Home() {
 
           </div>
 
-          {/* Incident Table */}
+          {/* Infrastructure Health */}
+          <div className="mt-10">
+
+            <h2 className="text-3xl font-bold mb-6">
+              Infrastructure Health
+            </h2>
+
+            <div className="grid grid-cols-3 gap-6">
+
+              <div className="bg-[#1E293B] p-6 rounded-2xl">
+
+                <div className="flex items-center justify-between">
+
+                  <h3 className="text-xl font-semibold">
+                    Kubernetes Cluster
+                  </h3>
+
+                  <span className="text-green-400 font-bold">
+                    Healthy
+                  </span>
+
+                </div>
+
+                <p className="text-gray-400 mt-4">
+                  All nodes operational with stable memory usage.
+                </p>
+
+              </div>
+
+              <div className="bg-[#1E293B] p-6 rounded-2xl">
+
+                <div className="flex items-center justify-between">
+
+                  <h3 className="text-xl font-semibold">
+                    PostgreSQL Database
+                  </h3>
+
+                  <span className="text-yellow-400 font-bold">
+                    Warning
+                  </span>
+
+                </div>
+
+                <p className="text-gray-400 mt-4">
+                  Increased query latency detected during peak traffic.
+                </p>
+
+              </div>
+
+              <div className="bg-[#1E293B] p-6 rounded-2xl">
+
+                <div className="flex items-center justify-between">
+
+                  <h3 className="text-xl font-semibold">
+                    Payment Gateway
+                  </h3>
+
+                  <span className="text-red-400 font-bold">
+                    Critical
+                  </span>
+
+                </div>
+
+                <p className="text-gray-400 mt-4">
+                  API timeout spikes impacting payment processing.
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          {/* Recent Incidents */}
           <div className="mt-10 bg-[#1E293B] rounded-2xl p-6 shadow-lg">
 
-            <h3 className="text-2xl font-semibold mb-6">
+            <h2 className="text-2xl font-semibold mb-6">
               Recent Incidents
-            </h3>
+            </h2>
 
             <table className="w-full">
 
@@ -253,6 +343,7 @@ export default function Home() {
         </section>
 
       </div>
+
     </main>
   );
 }
