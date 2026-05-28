@@ -1,8 +1,9 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from services.ai_service import generate_incident_analysis
+from services.log_service import analyze_uploaded_logs
 
 app = FastAPI(
     title="IncidentIQ API",
@@ -62,3 +63,17 @@ def analyze_incident(data: IncidentRequest):
     )
 
     return analysis
+
+@app.post("/upload-logs")
+async def upload_logs(file: UploadFile = File(...)):
+
+    content = await file.read()
+
+    decoded_logs = content.decode("utf-8")
+
+    analysis = analyze_uploaded_logs(decoded_logs)
+
+    return {
+        "filename": file.filename,
+        "log_analysis": analysis
+    }

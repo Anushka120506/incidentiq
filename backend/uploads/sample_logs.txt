@@ -1,0 +1,4 @@
+[ERROR] Database timeout detected
+[WARNING] CPU usage exceeded threshold
+[ERROR] Memory usage spike detected
+[CRITICAL] CrashLoopBackOff in payment-service
