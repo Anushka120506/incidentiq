@@ -7,6 +7,10 @@ export default function Home() {
 
   const [incidents, setIncidents] = useState<any[]>([]);
 
+  const [selectedFile, setSelectedFile] = useState<any>(null);
+
+  const [logAnalysis, setLogAnalysis] = useState<any>(null);
+
   useEffect(() => {
 
     fetchIncidents();
@@ -25,7 +29,35 @@ export default function Home() {
 
     } catch (error) {
 
-      console.error("API Error:", error);
+      console.error(error);
+
+    }
+
+  };
+
+  const uploadLogs = async () => {
+
+    if (!selectedFile) {
+      alert("Please select a log file");
+      return;
+    }
+
+    const formData = new FormData();
+
+    formData.append("file", selectedFile);
+
+    try {
+
+      const response = await axios.post(
+        "http://127.0.0.1:8000/upload-logs",
+        formData
+      );
+
+      setLogAnalysis(response.data.log_analysis);
+
+    } catch (error) {
+
+      console.error(error);
 
     }
 
@@ -81,7 +113,7 @@ export default function Home() {
 
           </div>
 
-          {/* Live API Status */}
+          {/* Backend Connected */}
           <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-6 rounded-2xl mb-10">
 
             <h2 className="text-2xl font-bold">
@@ -93,6 +125,97 @@ export default function Home() {
             </p>
 
           </div>
+
+          {/* Upload Logs */}
+          <div className="bg-[#1E293B] p-6 rounded-2xl mb-10">
+
+            <h2 className="text-3xl font-bold mb-6">
+              Upload Infrastructure Logs
+            </h2>
+
+            <input
+              type="file"
+              onChange={(e: any) =>
+                setSelectedFile(e.target.files[0])
+              }
+              className="mb-5 block"
+            />
+
+            <button
+              onClick={uploadLogs}
+              className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-xl font-semibold"
+            >
+              Analyze Logs with AI
+            </button>
+
+          </div>
+
+          {/* AI Log Analysis */}
+          {logAnalysis && (
+
+            <div className="bg-[#1E293B] p-6 rounded-2xl mb-10">
+
+              <h2 className="text-3xl font-bold mb-6">
+                AI Log Analysis Results
+              </h2>
+
+              <p className="text-green-400 text-lg mb-6">
+                {logAnalysis.ai_summary}
+              </p>
+
+              <div className="mb-6">
+
+                <h3 className="text-2xl font-semibold mb-4">
+                  Detected Issues
+                </h3>
+
+                <div className="space-y-3">
+
+                  {logAnalysis.detected_issues.map(
+                    (issue: string, index: number) => (
+
+                      <div
+                        key={index}
+                        className="bg-[#0F172A] p-4 rounded-xl border border-gray-700"
+                      >
+                        {issue}
+                      </div>
+
+                    )
+                  )}
+
+                </div>
+
+              </div>
+
+              <div>
+
+                <h3 className="text-2xl font-semibold mb-4">
+                  Recommended Actions
+                </h3>
+
+                <div className="space-y-3">
+
+                  {logAnalysis.recommended_actions.map(
+                    (action: string, index: number) => (
+
+                      <div
+                        key={index}
+                        className="bg-[#0F172A] p-4 rounded-xl border border-gray-700"
+                      >
+                        {action}
+                      </div>
+
+                    )
+                  )}
+
+                </div>
+
+              </div>
+
+            </div>
+
+          )}
 
           {/* Live Incidents */}
           <div className="bg-[#1E293B] p-6 rounded-2xl">
