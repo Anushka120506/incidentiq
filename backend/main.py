@@ -1,5 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+
+from services.ai_service import generate_incident_analysis
 
 app = FastAPI(
     title="IncidentIQ API",
@@ -13,6 +16,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+class IncidentRequest(BaseModel):
+    service_name: str
+    issue: str
 
 @app.get("/")
 def root():
@@ -45,3 +52,13 @@ def get_incidents():
             }
         ]
     }
+
+@app.post("/analyze-incident")
+def analyze_incident(data: IncidentRequest):
+
+    analysis = generate_incident_analysis(
+        data.service_name,
+        data.issue
+    )
+
+    return analysis
