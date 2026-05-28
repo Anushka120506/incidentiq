@@ -5,11 +5,13 @@ export default function Home() {
 
         {/* Sidebar */}
         <aside className="w-64 h-screen bg-[#111827] p-6 border-r border-gray-800">
-          <h1 className="text-3xl font-bold text-blue-400 mb-10">
+
+          <h1 className="text-3xl font-bold text-blue-400 mb-12">
             IncidentIQ
           </h1>
 
-          <nav className="space-y-5">
+          <nav className="space-y-6">
+
             <div className="text-gray-300 hover:text-white cursor-pointer">
               Dashboard
             </div>
@@ -33,48 +35,117 @@ export default function Home() {
             <div className="text-gray-300 hover:text-white cursor-pointer">
               Settings
             </div>
+
           </nav>
+
         </aside>
 
-        {/* Main Dashboard */}
+        {/* Main Content */}
         <section className="flex-1 p-8">
 
-          <h2 className="text-4xl font-bold mb-8">
-            AI Incident Dashboard
-          </h2>
+          {/* Top Navbar */}
+          <div className="flex items-center justify-between mb-10">
+
+            <div>
+
+              <h2 className="text-5xl font-bold">
+                AI Incident Dashboard
+              </h2>
+
+              <p className="text-gray-400 mt-3 text-lg">
+                Real-time AI-powered root cause analysis for infrastructure incidents.
+              </p>
+
+            </div>
+
+            <div className="flex gap-4">
+
+              <div className="bg-[#1E293B] px-5 py-3 rounded-2xl">
+
+                <p className="text-gray-400 text-sm">
+                  Environment
+                </p>
+
+                <p className="text-green-400 font-bold">
+                  Production
+                </p>
+
+              </div>
+
+              <div className="bg-[#1E293B] px-5 py-3 rounded-2xl">
+
+                <p className="text-gray-400 text-sm">
+                  AI Status
+                </p>
+
+                <p className="text-blue-400 font-bold">
+                  Active
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
 
           {/* Stats Cards */}
           <div className="grid grid-cols-3 gap-6">
 
             <div className="bg-[#1E293B] p-6 rounded-2xl shadow-lg">
-              <h3 className="text-gray-400 mb-2">
+
+              <h3 className="text-gray-400 mb-3">
                 Critical Incidents
               </h3>
 
               <p className="text-5xl font-bold text-red-400">
                 12
               </p>
+
             </div>
 
             <div className="bg-[#1E293B] p-6 rounded-2xl shadow-lg">
-              <h3 className="text-gray-400 mb-2">
+
+              <h3 className="text-gray-400 mb-3">
                 Active Alerts
               </h3>
 
               <p className="text-5xl font-bold text-yellow-400">
                 28
               </p>
+
             </div>
 
             <div className="bg-[#1E293B] p-6 rounded-2xl shadow-lg">
-              <h3 className="text-gray-400 mb-2">
+
+              <h3 className="text-gray-400 mb-3">
                 Resolved Today
               </h3>
 
               <p className="text-5xl font-bold text-green-400">
                 43
               </p>
+
             </div>
+
+          </div>
+
+          {/* AI Summary Panel */}
+          <div className="mt-10 bg-gradient-to-r from-blue-600 to-cyan-500 p-8 rounded-2xl shadow-xl">
+
+            <h3 className="text-3xl font-bold mb-4">
+              AI Incident Summary
+            </h3>
+
+            <p className="text-lg leading-8 text-white">
+
+              IncidentIQ detected unusual database latency spikes affecting the
+              Payment API service. AI analysis indicates a probable PostgreSQL
+              connection pool exhaustion issue after deployment v2.3.
+
+              Recommended action:
+              restart database pool and rollback latest deployment changes.
+
+            </p>
 
           </div>
 
@@ -88,42 +159,99 @@ export default function Home() {
             <table className="w-full">
 
               <thead>
+
                 <tr className="border-b border-gray-700 text-left text-gray-400">
-                  <th className="pb-4">Service</th>
-                  <th className="pb-4">Severity</th>
-                  <th className="pb-4">Status</th>
-                  <th className="pb-4">AI Root Cause</th>
+
+                  <th className="pb-4">
+                    Service
+                  </th>
+
+                  <th className="pb-4">
+                    Severity
+                  </th>
+
+                  <th className="pb-4">
+                    Status
+                  </th>
+
+                  <th className="pb-4">
+                    AI Root Cause
+                  </th>
+
                 </tr>
+
               </thead>
 
               <tbody>
 
                 <tr className="border-b border-gray-800">
-                  <td className="py-4">Payment API</td>
-                  <td className="text-red-400">Critical</td>
-                  <td>Investigating</td>
-                  <td>Database connection timeout spike</td>
+
+                  <td className="py-4">
+                    Payment API
+                  </td>
+
+                  <td className="text-red-400">
+                    Critical
+                  </td>
+
+                  <td>
+                    Investigating
+                  </td>
+
+                  <td>
+                    Database connection timeout spike
+                  </td>
+
                 </tr>
 
                 <tr className="border-b border-gray-800">
-                  <td className="py-4">Auth Service</td>
-                  <td className="text-yellow-400">Warning</td>
-                  <td>Monitoring</td>
-                  <td>CPU usage exceeded threshold</td>
+
+                  <td className="py-4">
+                    Auth Service
+                  </td>
+
+                  <td className="text-yellow-400">
+                    Warning
+                  </td>
+
+                  <td>
+                    Monitoring
+                  </td>
+
+                  <td>
+                    CPU usage exceeded threshold
+                  </td>
+
                 </tr>
 
                 <tr>
-                  <td className="py-4">Kubernetes Cluster</td>
-                  <td className="text-green-400">Resolved</td>
-                  <td>Resolved</td>
-                  <td>Memory leak after deployment rollback</td>
+
+                  <td className="py-4">
+                    Kubernetes Cluster
+                  </td>
+
+                  <td className="text-green-400">
+                    Resolved
+                  </td>
+
+                  <td>
+                    Resolved
+                  </td>
+
+                  <td>
+                    Memory leak after deployment rollback
+                  </td>
+
                 </tr>
 
               </tbody>
+
             </table>
+
           </div>
 
         </section>
+
       </div>
     </main>
   );
