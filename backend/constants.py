@@ -1,0 +1,3 @@
+SEVERITY_CRITICAL = "Critical"
+SEVERITY_WARNING = "Warning"
+SEVERITY_RESOLVED = "Resolved"
