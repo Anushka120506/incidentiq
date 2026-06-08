@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 import toast, { Toaster } from "react-hot-toast";
 
@@ -126,30 +127,44 @@ export default function Home() {
             IncidentIQ
           </h1>
 
-          <nav className="space-y-6">
+<nav className="space-y-6">
 
-            <div className="text-white font-semibold">
-              Dashboard
-            </div>
+  <Link
+    href="/"
+    className="block text-white font-semibold hover:text-blue-400"
+  >
+    Dashboard
+  </Link>
 
-            <div className="text-gray-400">
-              Incidents
-            </div>
+  <Link
+    href="/incidents"
+    className="block text-gray-400 hover:text-blue-400"
+  >
+    Incidents
+  </Link>
 
-            <div className="text-gray-400">
-              AI Analysis
-            </div>
+  <Link
+    href="/ai-analysis"
+    className="block text-gray-400 hover:text-blue-400"
+  >
+    AI Analysis
+  </Link>
 
-            <div className="text-gray-400">
-              Infrastructure
-            </div>
+  <Link
+    href="/infrastructure"
+    className="block text-gray-400 hover:text-blue-400"
+  >
+    Infrastructure
+  </Link>
 
-            <div className="text-gray-400">
-              Analytics
-            </div>
+  <Link
+    href="/analytics"
+    className="block text-gray-400 hover:text-blue-400"
+  >
+    Analytics
+  </Link>
 
-          </nav>
-
+</nav>
         </aside>
 
         <section className="flex-1 p-8">
