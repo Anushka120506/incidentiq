@@ -80,13 +80,33 @@ export default function IncidentsPage() {
               {incident.service}
             </h2>
 
-            <p className="mt-2">
-              Severity: {incident.severity}
-            </p>
+            <div className="flex gap-3 mt-3">
 
-            <p>
-              Status: {incident.status}
-            </p>
+  <span
+    className={`px-3 py-1 rounded-full text-sm font-semibold ${
+      incident.severity === "Critical"
+        ? "bg-red-500/20 text-red-400"
+        : incident.severity === "Warning"
+        ? "bg-yellow-500/20 text-yellow-400"
+        : "bg-green-500/20 text-green-400"
+    }`}
+  >
+    {incident.severity}
+  </span>
+
+  <span
+    className={`px-3 py-1 rounded-full text-sm font-semibold ${
+      incident.status === "Investigating"
+        ? "bg-red-500/20 text-red-400"
+        : incident.status === "Monitoring"
+        ? "bg-yellow-500/20 text-yellow-400"
+        : "bg-green-500/20 text-green-400"
+    }`}
+  >
+    {incident.status}
+  </span>
+
+</div>
           </div>
         ))}
 
