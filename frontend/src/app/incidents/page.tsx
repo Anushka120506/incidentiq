@@ -43,8 +43,64 @@ export default function IncidentsPage() {
   return (
     <main className="min-h-screen bg-[#0B1120] text-white p-8">
       <h1 className="text-4xl font-bold mb-8">
-        Incident Management
-      </h1>
+  Incident Management
+</h1>
+
+<div className="grid grid-cols-4 gap-6 mb-8">
+
+  <div className="bg-slate-800 p-5 rounded-xl">
+    <p className="text-gray-400">
+      Total Incidents
+    </p>
+
+    <h2 className="text-4xl font-bold mt-2">
+      {incidents.length}
+    </h2>
+  </div>
+
+  <div className="bg-slate-800 p-5 rounded-xl">
+    <p className="text-gray-400">
+      Critical
+    </p>
+
+    <h2 className="text-4xl font-bold text-red-400 mt-2">
+      {
+        incidents.filter(
+          (i) => i.severity === "Critical"
+        ).length
+      }
+    </h2>
+  </div>
+
+  <div className="bg-slate-800 p-5 rounded-xl">
+    <p className="text-gray-400">
+      Warning
+    </p>
+
+    <h2 className="text-4xl font-bold text-yellow-400 mt-2">
+      {
+        incidents.filter(
+          (i) => i.severity === "Warning"
+        ).length
+      }
+    </h2>
+  </div>
+
+  <div className="bg-slate-800 p-5 rounded-xl">
+    <p className="text-gray-400">
+      Resolved
+    </p>
+
+    <h2 className="text-4xl font-bold text-green-400 mt-2">
+      {
+        incidents.filter(
+          (i) => i.severity === "Resolved"
+        ).length
+      }
+    </h2>
+  </div>
+
+</div>
 
       <div className="flex gap-4 mb-8">
 
