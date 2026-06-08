@@ -43,64 +43,60 @@ export default function IncidentsPage() {
   return (
     <main className="min-h-screen bg-[#0B1120] text-white p-8">
       <h1 className="text-4xl font-bold mb-8">
-  Incident Management
-</h1>
+        Incident Management
+      </h1>
 
-<div className="grid grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-4 gap-6 mb-8">
 
-  <div className="bg-slate-800 p-5 rounded-xl">
-    <p className="text-gray-400">
-      Total Incidents
-    </p>
+        <div className="bg-slate-800 p-5 rounded-xl">
+          <p className="text-gray-400">
+            Total Incidents
+          </p>
+          <h2 className="text-4xl font-bold mt-2">
+            {incidents.length}
+          </h2>
+        </div>
 
-    <h2 className="text-4xl font-bold mt-2">
-      {incidents.length}
-    </h2>
-  </div>
+        <div className="bg-slate-800 p-5 rounded-xl">
+          <p className="text-gray-400">
+            Critical
+          </p>
+          <h2 className="text-4xl font-bold text-red-400 mt-2">
+            {
+              incidents.filter(
+                (i) => i.severity === "Critical"
+              ).length
+            }
+          </h2>
+        </div>
 
-  <div className="bg-slate-800 p-5 rounded-xl">
-    <p className="text-gray-400">
-      Critical
-    </p>
+        <div className="bg-slate-800 p-5 rounded-xl">
+          <p className="text-gray-400">
+            Warning
+          </p>
+          <h2 className="text-4xl font-bold text-yellow-400 mt-2">
+            {
+              incidents.filter(
+                (i) => i.severity === "Warning"
+              ).length
+            }
+          </h2>
+        </div>
 
-    <h2 className="text-4xl font-bold text-red-400 mt-2">
-      {
-        incidents.filter(
-          (i) => i.severity === "Critical"
-        ).length
-      }
-    </h2>
-  </div>
+        <div className="bg-slate-800 p-5 rounded-xl">
+          <p className="text-gray-400">
+            Resolved
+          </p>
+          <h2 className="text-4xl font-bold text-green-400 mt-2">
+            {
+              incidents.filter(
+                (i) => i.severity === "Resolved"
+              ).length
+            }
+          </h2>
+        </div>
 
-  <div className="bg-slate-800 p-5 rounded-xl">
-    <p className="text-gray-400">
-      Warning
-    </p>
-
-    <h2 className="text-4xl font-bold text-yellow-400 mt-2">
-      {
-        incidents.filter(
-          (i) => i.severity === "Warning"
-        ).length
-      }
-    </h2>
-  </div>
-
-  <div className="bg-slate-800 p-5 rounded-xl">
-    <p className="text-gray-400">
-      Resolved
-    </p>
-
-    <h2 className="text-4xl font-bold text-green-400 mt-2">
-      {
-        incidents.filter(
-          (i) => i.severity === "Resolved"
-        ).length
-      }
-    </h2>
-  </div>
-
-</div>
+      </div>
 
       <div className="flex gap-4 mb-8">
 
@@ -125,46 +121,80 @@ export default function IncidentsPage() {
 
       </div>
 
-      <div className="space-y-4">
+      <div className="bg-slate-800 rounded-xl overflow-hidden">
 
-        {filteredIncidents.map((incident, index) => (
-          <div
-            key={index}
-            className="bg-slate-800 p-6 rounded-xl"
-          >
-            <h2 className="text-xl font-bold">
-              {incident.service}
-            </h2>
+        <table className="w-full">
 
-            <div className="flex gap-3 mt-3">
+          <thead className="bg-slate-900">
 
-  <span
-    className={`px-3 py-1 rounded-full text-sm font-semibold ${
-      incident.severity === "Critical"
-        ? "bg-red-500/20 text-red-400"
-        : incident.severity === "Warning"
-        ? "bg-yellow-500/20 text-yellow-400"
-        : "bg-green-500/20 text-green-400"
-    }`}
-  >
-    {incident.severity}
-  </span>
+            <tr>
+              <th className="text-left p-4">
+                Service
+              </th>
 
-  <span
-    className={`px-3 py-1 rounded-full text-sm font-semibold ${
-      incident.status === "Investigating"
-        ? "bg-red-500/20 text-red-400"
-        : incident.status === "Monitoring"
-        ? "bg-yellow-500/20 text-yellow-400"
-        : "bg-green-500/20 text-green-400"
-    }`}
-  >
-    {incident.status}
-  </span>
+              <th className="text-left p-4">
+                Severity
+              </th>
 
-</div>
-          </div>
-        ))}
+              <th className="text-left p-4">
+                Status
+              </th>
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            {filteredIncidents.map((incident, index) => (
+
+              <tr
+                key={index}
+                className="border-t border-slate-700"
+              >
+
+                <td className="p-4 font-semibold">
+                  {incident.service}
+                </td>
+
+                <td className="p-4">
+
+                  <span
+                    className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                      incident.severity === "Critical"
+                        ? "bg-red-500/20 text-red-400"
+                        : incident.severity === "Warning"
+                        ? "bg-yellow-500/20 text-yellow-400"
+                        : "bg-green-500/20 text-green-400"
+                    }`}
+                  >
+                    {incident.severity}
+                  </span>
+
+                </td>
+
+                <td className="p-4">
+
+                  <span
+                    className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                      incident.status === "Investigating"
+                        ? "bg-red-500/20 text-red-400"
+                        : incident.status === "Monitoring"
+                        ? "bg-yellow-500/20 text-yellow-400"
+                        : "bg-green-500/20 text-green-400"
+                    }`}
+                  >
+                    {incident.status}
+                  </span>
+
+                </td>
+
+              </tr>
+
+            ))}
+
+          </tbody>
+
+        </table>
 
       </div>
     </main>
