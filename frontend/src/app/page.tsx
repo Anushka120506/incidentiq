@@ -30,9 +30,17 @@ export default function Home() {
 
   useEffect(() => {
 
-    fetchIncidents();
+  const isLoggedIn =
+    localStorage.getItem("incidentiq_logged_in");
 
-  }, []);
+  if (!isLoggedIn) {
+    window.location.href = "/login";
+    return;
+  }
+
+  fetchIncidents();
+
+}, []);
 
   const fetchIncidents = async () => {
 
