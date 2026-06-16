@@ -9,13 +9,14 @@ export default function IncidentsPage() {
   const [serviceName, setServiceName] = useState("");
   const [newSeverity, setNewSeverity] = useState("Critical");
   const [newStatus, setNewStatus] = useState("Investigating");
-const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
-const [editService, setEditService] = useState("");
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [editService, setEditService] = useState("");
+  const [editSeverity, setEditSeverity] = useState("Critical");
+  const [editStatus, setEditStatus] = useState("Investigating");
 
-const [editSeverity, setEditSeverity] = useState("Critical");
+  const [notifications, setNotifications] = useState<string[]>([]);
 
-const [editStatus, setEditStatus] = useState("Investigating");
   const [incidents, setIncidents] = useState([
     {
       service: "Payment API",
@@ -53,11 +54,14 @@ const [editStatus, setEditStatus] = useState("Investigating");
 
     setIncidents([incident, ...incidents]);
 
+    setNotifications([
+      `New Incident Created: ${serviceName}`,
+      ...notifications,
+    ]);
+
     setServiceName("");
     setNewSeverity("Critical");
     setNewStatus("Investigating");
-
-    alert("Incident Created Successfully");
   };
 
   const deleteIncident = (indexToDelete: number) => {
@@ -66,34 +70,42 @@ const [editStatus, setEditStatus] = useState("Investigating");
     );
 
     setIncidents(updatedIncidents);
-  };
-const saveEdit = () => {
 
-  if (editingIndex === null) {
-    return;
-  }
-
-  const updatedIncidents = [...incidents];
-
-  updatedIncidents[editingIndex] = {
-    service: editService,
-    severity: editSeverity,
-    status: editStatus,
+    setNotifications([
+      "Incident Deleted",
+      ...notifications,
+    ]);
   };
 
-  setIncidents(updatedIncidents);
+  const saveEdit = () => {
+    if (editingIndex === null) return;
 
-  setEditingIndex(null);
+    const updatedIncidents = [...incidents];
 
-  alert("Incident Updated Successfully");
-};
+    updatedIncidents[editingIndex] = {
+      service: editService,
+      severity: editSeverity,
+      status: editStatus,
+    };
+
+    setIncidents(updatedIncidents);
+
+    setNotifications([
+      `Incident Updated: ${editService}`,
+      ...notifications,
+    ]);
+
+    setEditingIndex(null);
+  };
+
   const filteredIncidents = incidents.filter((incident) => {
     const matchesSearch = incident.service
       .toLowerCase()
       .includes(search.toLowerCase());
 
     const matchesSeverity =
-      severity === "All" || incident.severity === severity;
+      severity === "All" ||
+      incident.severity === severity;
 
     return matchesSearch && matchesSeverity;
   });
@@ -104,16 +116,43 @@ const saveEdit = () => {
         Incident Management
       </h1>
 
+      <div className="bg-slate-800 p-6 rounded-xl mb-8">
+        <h2 className="text-2xl font-bold mb-4">
+          🔔 Notifications
+        </h2>
+
+        {notifications.length === 0 ? (
+          <p className="text-gray-400">
+            No notifications yet
+          </p>
+        ) : (
+          <div className="space-y-2">
+            {notifications.map((notification, index) => (
+              <div
+                key={index}
+                className="bg-slate-900 p-3 rounded-lg"
+              >
+                {notification}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
       <div className="grid grid-cols-4 gap-6 mb-8">
         <div className="bg-slate-800 p-5 rounded-xl">
-          <p className="text-gray-400">Total Incidents</p>
+          <p className="text-gray-400">
+            Total Incidents
+          </p>
           <h2 className="text-4xl font-bold mt-2">
             {incidents.length}
           </h2>
         </div>
 
         <div className="bg-slate-800 p-5 rounded-xl">
-          <p className="text-gray-400">Critical</p>
+          <p className="text-gray-400">
+            Critical
+          </p>
           <h2 className="text-4xl font-bold text-red-400 mt-2">
             {
               incidents.filter(
@@ -124,7 +163,9 @@ const saveEdit = () => {
         </div>
 
         <div className="bg-slate-800 p-5 rounded-xl">
-          <p className="text-gray-400">Warning</p>
+          <p className="text-gray-400">
+            Warning
+          </p>
           <h2 className="text-4xl font-bold text-yellow-400 mt-2">
             {
               incidents.filter(
@@ -135,7 +176,9 @@ const saveEdit = () => {
         </div>
 
         <div className="bg-slate-800 p-5 rounded-xl">
-          <p className="text-gray-400">Resolved</p>
+          <p className="text-gray-400">
+            Resolved
+          </p>
           <h2 className="text-4xl font-bold text-green-400 mt-2">
             {
               incidents.filter(
@@ -194,73 +237,73 @@ const saveEdit = () => {
           </button>
         </div>
       </div>
-{editingIndex !== null && (
 
-  <div className="bg-slate-800 p-6 rounded-xl mb-8">
+      {editingIndex !== null && (
+        <div className="bg-slate-800 p-6 rounded-xl mb-8">
+          <h2 className="text-2xl font-bold mb-4">
+            Edit Incident
+          </h2>
 
-    <h2 className="text-2xl font-bold mb-4">
-      Edit Incident
-    </h2>
+          <div className="flex gap-4 flex-wrap">
+            <input
+              type="text"
+              value={editService}
+              onChange={(e) =>
+                setEditService(e.target.value)
+              }
+              className="bg-slate-900 p-3 rounded-lg"
+            />
 
-    <div className="flex gap-4 flex-wrap">
+            <select
+              value={editSeverity}
+              onChange={(e) =>
+                setEditSeverity(e.target.value)
+              }
+              className="bg-slate-900 p-3 rounded-lg"
+            >
+              <option>Critical</option>
+              <option>Warning</option>
+              <option>Resolved</option>
+            </select>
 
-      <input
-        type="text"
-        value={editService}
-        onChange={(e) =>
-          setEditService(e.target.value)
-        }
-        className="bg-slate-900 p-3 rounded-lg"
-      />
+            <select
+              value={editStatus}
+              onChange={(e) =>
+                setEditStatus(e.target.value)
+              }
+              className="bg-slate-900 p-3 rounded-lg"
+            >
+              <option>Investigating</option>
+              <option>Monitoring</option>
+              <option>Resolved</option>
+            </select>
 
-      <select
-        value={editSeverity}
-        onChange={(e) =>
-          setEditSeverity(e.target.value)
-        }
-        className="bg-slate-900 p-3 rounded-lg"
-      >
-        <option>Critical</option>
-        <option>Warning</option>
-        <option>Resolved</option>
-      </select>
+            <button
+              onClick={saveEdit}
+              className="bg-green-600 hover:bg-green-700 px-5 py-3 rounded-lg"
+            >
+              Save Changes
+            </button>
+          </div>
+        </div>
+      )}
 
-      <select
-        value={editStatus}
-        onChange={(e) =>
-          setEditStatus(e.target.value)
-        }
-        className="bg-slate-900 p-3 rounded-lg"
-      >
-        <option>Investigating</option>
-        <option>Monitoring</option>
-        <option>Resolved</option>
-      </select>
-
-      <button
-        onClick={saveEdit}
-        className="bg-green-600 hover:bg-green-700 px-5 py-3 rounded-lg"
-      >
-        Save Changes
-      </button>
-
-    </div>
-
-  </div>
-
-)}
       <div className="flex gap-4 mb-8">
         <input
           type="text"
           placeholder="Search incidents..."
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) =>
+            setSearch(e.target.value)
+          }
           className="bg-slate-800 p-3 rounded-lg w-80"
         />
 
         <select
           value={severity}
-          onChange={(e) => setSeverity(e.target.value)}
+          onChange={(e) =>
+            setSeverity(e.target.value)
+          }
           className="bg-slate-800 p-3 rounded-lg"
         >
           <option>All</option>
@@ -292,56 +335,40 @@ const saveEdit = () => {
                 </td>
 
                 <td className="p-4">
-                  <span
-                    className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                      incident.severity === "Critical"
-                        ? "bg-red-500/20 text-red-400"
-                        : incident.severity === "Warning"
-                        ? "bg-yellow-500/20 text-yellow-400"
-                        : "bg-green-500/20 text-green-400"
-                    }`}
-                  >
-                    {incident.severity}
-                  </span>
+                  {incident.severity}
                 </td>
 
                 <td className="p-4">
-                  <span
-                    className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                      incident.status === "Investigating"
-                        ? "bg-red-500/20 text-red-400"
-                        : incident.status === "Monitoring"
-                        ? "bg-yellow-500/20 text-yellow-400"
-                        : "bg-green-500/20 text-green-400"
-                    }`}
-                  >
-                    {incident.status}
-                  </span>
+                  {incident.status}
                 </td>
 
-                <td className="p-4">
-                  <td className="p-4 flex gap-2">
+                <td className="p-4 flex gap-2">
+                  <button
+                    onClick={() => {
+                      setEditingIndex(index);
+                      setEditService(
+                        incident.service
+                      );
+                      setEditSeverity(
+                        incident.severity
+                      );
+                      setEditStatus(
+                        incident.status
+                      );
+                    }}
+                    className="bg-yellow-600 hover:bg-yellow-700 px-3 py-2 rounded-lg"
+                  >
+                    Edit
+                  </button>
 
-  <button
-    onClick={() => {
-      setEditingIndex(index);
-      setEditService(incident.service);
-      setEditSeverity(incident.severity);
-      setEditStatus(incident.status);
-    }}
-    className="bg-yellow-600 hover:bg-yellow-700 px-3 py-2 rounded-lg"
-  >
-    Edit
-  </button>
-
-  <button
-    onClick={() => deleteIncident(index)}
-    className="bg-red-600 hover:bg-red-700 px-3 py-2 rounded-lg"
-  >
-    Delete
-  </button>
-
-</td>
+                  <button
+                    onClick={() =>
+                      deleteIncident(index)
+                    }
+                    className="bg-red-600 hover:bg-red-700 px-3 py-2 rounded-lg"
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
