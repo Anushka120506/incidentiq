@@ -9,7 +9,13 @@ export default function IncidentsPage() {
   const [serviceName, setServiceName] = useState("");
   const [newSeverity, setNewSeverity] = useState("Critical");
   const [newStatus, setNewStatus] = useState("Investigating");
+const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
+const [editService, setEditService] = useState("");
+
+const [editSeverity, setEditSeverity] = useState("Critical");
+
+const [editStatus, setEditStatus] = useState("Investigating");
   const [incidents, setIncidents] = useState([
     {
       service: "Payment API",
@@ -61,7 +67,26 @@ export default function IncidentsPage() {
 
     setIncidents(updatedIncidents);
   };
+const saveEdit = () => {
 
+  if (editingIndex === null) {
+    return;
+  }
+
+  const updatedIncidents = [...incidents];
+
+  updatedIncidents[editingIndex] = {
+    service: editService,
+    severity: editSeverity,
+    status: editStatus,
+  };
+
+  setIncidents(updatedIncidents);
+
+  setEditingIndex(null);
+
+  alert("Incident Updated Successfully");
+};
   const filteredIncidents = incidents.filter((incident) => {
     const matchesSearch = incident.service
       .toLowerCase()
@@ -169,7 +194,61 @@ export default function IncidentsPage() {
           </button>
         </div>
       </div>
+{editingIndex !== null && (
 
+  <div className="bg-slate-800 p-6 rounded-xl mb-8">
+
+    <h2 className="text-2xl font-bold mb-4">
+      Edit Incident
+    </h2>
+
+    <div className="flex gap-4 flex-wrap">
+
+      <input
+        type="text"
+        value={editService}
+        onChange={(e) =>
+          setEditService(e.target.value)
+        }
+        className="bg-slate-900 p-3 rounded-lg"
+      />
+
+      <select
+        value={editSeverity}
+        onChange={(e) =>
+          setEditSeverity(e.target.value)
+        }
+        className="bg-slate-900 p-3 rounded-lg"
+      >
+        <option>Critical</option>
+        <option>Warning</option>
+        <option>Resolved</option>
+      </select>
+
+      <select
+        value={editStatus}
+        onChange={(e) =>
+          setEditStatus(e.target.value)
+        }
+        className="bg-slate-900 p-3 rounded-lg"
+      >
+        <option>Investigating</option>
+        <option>Monitoring</option>
+        <option>Resolved</option>
+      </select>
+
+      <button
+        onClick={saveEdit}
+        className="bg-green-600 hover:bg-green-700 px-5 py-3 rounded-lg"
+      >
+        Save Changes
+      </button>
+
+    </div>
+
+  </div>
+
+)}
       <div className="flex gap-4 mb-8">
         <input
           type="text"
@@ -241,12 +320,28 @@ export default function IncidentsPage() {
                 </td>
 
                 <td className="p-4">
-                  <button
-                    onClick={() => deleteIncident(index)}
-                    className="bg-red-600 hover:bg-red-700 px-3 py-2 rounded-lg"
-                  >
-                    Delete
-                  </button>
+                  <td className="p-4 flex gap-2">
+
+  <button
+    onClick={() => {
+      setEditingIndex(index);
+      setEditService(incident.service);
+      setEditSeverity(incident.severity);
+      setEditStatus(incident.status);
+    }}
+    className="bg-yellow-600 hover:bg-yellow-700 px-3 py-2 rounded-lg"
+  >
+    Edit
+  </button>
+
+  <button
+    onClick={() => deleteIncident(index)}
+    className="bg-red-600 hover:bg-red-700 px-3 py-2 rounded-lg"
+  >
+    Delete
+  </button>
+
+</td>
                 </td>
               </tr>
             ))}
